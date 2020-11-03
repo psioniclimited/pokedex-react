@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import mockData from "./mockData";
+import { toFirstCharUpperCase } from "./constants";
 
 const useStyles = makeStyles({
   pokedexCOntainer: {
@@ -23,9 +24,8 @@ const useStyles = makeStyles({
   },
 });
 
-const toFirstCharUpperCase = name => name.charAt(0).toUpperCase() + name.slice(1);
-
-export const Pokedex = () => {
+export const Pokedex = (props) => {
+  const { history } = props;
   const classes = useStyles();
   const [pokemonData, setPokemonData] = useState(mockData);
   // Get Pokemon Card
@@ -35,7 +35,7 @@ export const Pokedex = () => {
     const sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
     return (
       <Grid item xs={12} sm={4} key={pokemonId}>
-        <Card>
+        <Card onClick={() => history.push(`/${pokemonId}`)}>
           <CardMedia
             className={classes.cardMedia}
             image={sprite}
